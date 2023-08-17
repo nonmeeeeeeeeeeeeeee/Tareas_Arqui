@@ -65,17 +65,82 @@ def decimal_part_to_bin(num, maxlen):
             lst.append(0)
     return lst
 
-def sum_bin(bin1, bin2):
+def cut_mantissa(mant, positions):
 
+    integerPart = [1] + mant[:positions]
+    decimalPart = mant[positions:]
+    toRet = (integerPart, decimalPart)
+    return toRet
+
+        
+def bin_to_int(binNum):
+    binNum.reverse()
+    num = 0
+    for x in range(len(binNum)):
+        num += ((2**x)*binNum[x])
+    return num
+
+def operate_bin(bin1, bin2):
+
+    sign = bin[:1]
     exp1 = bin1[1:9]
     exp2 = bin2[1:9]
     mant1 = bin1[9:]
     mant2 = bin2[9:]
 
+    expNum1 = bin_to_int(exp1)
+    expNum2 = bin_to_int(exp2)
+
+    if expNum1 > expNum2:
+        finalExp = exp1
+        positionsToMove = expNum1 - 127
+    else:
+        finalExp = exp2
+        positionsToMove = expNum2 - 127
+
+    int1, decimal1 = cut_mantissa(mant1, positionsToMove)
+    int2, decimal2 = cut_mantissa(mant2, positionsToMove)
+ 
+    """
+    
+    Trabajar desde aqui!!!!
+
+    Falta:
+
+    1) finalizar la funcion sum bin, lo que haria yo seria 
+    1ro dar vuelta las listas de binarios para operar en orden, 
+    luego operar los 0 y unos y si sobra uno colocarlo alfinal. 
+    2do dar vuelta denuevo la lista y 3ro retornar el numero 
+    binario en forma de lista
+
+    2) para la suma de las partes decimales de los numeros, si se
+    arrastra un 1 alfinal agrandando el decimal (por ejemplo 0.9 + 0.9 = 1.9),
+    hay que sumar ese uno a la suma de las partes enteras, y sacarlo de la lista de decimales
+    Se me ocurre que se podria hacer con la funcion sum_bin entre el resultado
+    del paso 1 y una lista que sea lst = [0, 0 , ... , 1], que el largo de la
+    lista sea del mismo largo que la suma de los enteros.
+
+    3) unir las listas de entero y decimal y cortarla para que tenga largo 24 y 
+    sacar el primer termino de la lista (puede quedar con con mas de 24 0's y 1's 
+    por eso hay que cortar, y el primer termino seca por una propiedad de la mantisa)
+
+    4) unir la lista del paso 3 con sign y finalExp de la forma:
+    finalBin = sign + finalExp + listaPaso3
+
+    5) crear una funcion que pase las listas de binarios que tenemos a string
+
+    6) crear una funcion main que abra el archivo a leer y cree el archivo con las respuestas (esto lo puedo hacer yo)
+
+    """
+    return
+
+def sum_bin(bin1, bin2):
+    return
 
 
 
 
-
-
-print(len(decimal_to_binary(('+', '54', '25'))))
+#print(decimal_to_binary(('+', '42', '87')))
+test1 = [0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1]
+test2 = [0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0]
+print(sum_bin(test1, test2))
