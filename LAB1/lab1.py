@@ -1,6 +1,12 @@
 line = "45.5;-5.353"
 
 def line_to_list(line):
+    '''
+    ***
+    *  line  : str
+    ***
+    Convierte un string en una lista de elementos separados por punto y coma (";"), dividiendo cada elemento en signo, parte entera y parte decimal.
+    '''
     line = line.split(";", -1)
     for x in range(len(line)):
         line[x] = line[x].split(".", -1)
@@ -12,6 +18,12 @@ def line_to_list(line):
     return line
 
 def decimal_to_binary(lst):
+    '''
+    ***
+    *  lst  : list
+    ***
+    Convierte un numero float en su representación binaria IEEE 754 de 32 bits.
+    '''
     integer_part = int(lst[1])
     decimal_part = float(("0." + lst[2]))
     binNum = []
@@ -35,7 +47,12 @@ def decimal_to_binary(lst):
     return binNum
 
 def exponent(num):
-
+    '''
+    ***
+    *  num  : int
+    ***
+    Calcula el exponente en notación binaria IEEE 754 de 8 bits.
+    '''
     exp = integer_part_to_bin(127 + num)
     while len(exp) < 8:
         exp.insert(0,0)
@@ -43,6 +60,12 @@ def exponent(num):
     return exp
 
 def integer_part_to_bin(num):
+    '''
+    ***
+    *  num  : int
+    ***
+    Convierte la parte entera de un número en su representación binaria.
+    '''
     lst = []
     while num:
         lst.insert(0, num%2)
@@ -50,6 +73,13 @@ def integer_part_to_bin(num):
     return lst
 
 def decimal_part_to_bin(num, maxlen):
+    '''
+    ***
+    *  num    : int
+    *  maxlen : int
+    ***
+    Convierte la parte decimal de un número en su representación binaria, con una longitud máxima dada por `maxlen`.
+    '''
     lst = []
     
     while len(lst) < maxlen: 
@@ -66,7 +96,13 @@ def decimal_part_to_bin(num, maxlen):
     return lst
 
 def cut_mantissa(mant, positions):
-
+    '''
+    ***
+    *  mant      : list
+    *  positions : int
+    ***
+    Divide la mantisa de un número binario en parte entera y parte decimal, basado en la cantidad de posiciones a mover.
+    '''
     integerPart = [1] + mant[:positions]
     decimalPart = mant[positions:]
     toRet = (integerPart, decimalPart)
@@ -74,6 +110,12 @@ def cut_mantissa(mant, positions):
 
         
 def bin_to_int(binNum):
+    '''
+    ***
+    *  binNum  : list
+    ***
+    Convierte un número binario en su equivalente decimal.
+    '''
     binNum.reverse()
     num = 0
     for x in range(len(binNum)):
@@ -81,7 +123,13 @@ def bin_to_int(binNum):
     return num
 
 def operate_bin(bin1, bin2):
-
+    '''
+    ***
+    *  bin1  : list
+    *  bin2  : list
+    ***
+    Realiza operaciones en números binarios IEEE 754 de 32 bits y retorna el resultado.
+    '''
     sign = bin[:1]
     exp1 = bin1[1:9]
     exp2 = bin2[1:9]
@@ -135,6 +183,14 @@ def operate_bin(bin1, bin2):
     return
 
 def sum_bin(bin1, bin2):
+    '''
+    ***
+    *  bin1  : list
+    *  bin2  : list
+    ***
+    Realiza la suma de dos números binarios en notación binaria IEEE 754 de 32 bits.
+    '''
+    
     return
 
 
